@@ -22,7 +22,7 @@
       padding: 25px;
       border-radius: 10px;
       width: 100%;
-      max-width: 400px;
+      max-width: 480px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
@@ -46,6 +46,7 @@
       border-radius: 5px;
       margin-bottom: 15px;
       font-size: 14px;
+      line-height: 1.5;
     }
 
     label {
@@ -80,7 +81,6 @@
       }
     }
 
-    /* ✅ Mensagem personalizada */
     #mensagem {
       display: none;
       margin-top: 15px;
@@ -107,13 +107,26 @@
 
 <div class="container">
 
-  <h2>Cartilha</h2>
+  <h2>Cartilha de Cidadania Digital</h2>
 
   <div class="box">
-    <b>Orientações:</b><br><br>
-    - Leia atentamente todo o conteúdo da cartilha<br>
-    - Após enviar, a cartilha será liberada automaticamente<br>
-    - O download será feito após a confirmação
+    <b>Olá, colaborador(a),</b><br><br>
+
+    Você está acessando a <b>Cartilha de Cidadania Digital</b>, um material elaborado especialmente para orientar nossa equipe sobre as atualizações relacionadas ao uso de imagem, ao ambiente digital e às diretrizes do ECA Digital e da LGPD.<br><br>
+
+    <b>Siga as orientações abaixo para acessar o conteúdo:</b><br><br>
+
+    • Preencha seu nome completo no campo indicado;<br>
+    • Marque a opção <i>“Confirmo que recebi a cartilha”</i>;<br>
+    • Clique em <b>“Enviar”</b> para prosseguir;<br>
+    • Após o envio, o arquivo em PDF será disponibilizado automaticamente para visualização.<br><br>
+
+    <b>Importante:</b><br><br>
+
+    • Leia a cartilha com atenção, garantindo a compreensão de todos os pontos apresentados;<br>
+    • Faça o download do material em seu dispositivo para consultas sempre que necessário.<br><br>
+
+    Em caso de dúvidas, procure o RH.
   </div>
 
   <input type="text" id="nome" placeholder="Digite seu nome completo">
@@ -125,7 +138,6 @@
 
   <button onclick="registrar()">Enviar</button>
 
-  <!-- ✅ Mensagem aparece aqui -->
   <div id="mensagem"></div>
 
 </div>
@@ -142,14 +154,14 @@ function registrar() {
   if (nome === "") {
     msg.style.display = "block";
     msg.classList.add("erro");
-    msg.innerText = "Por favor, informe seu nome.";
+    msg.innerText = "Por favor, informe seu nome completo.";
     return;
   }
 
   if (!confirmo) {
     msg.style.display = "block";
     msg.classList.add("erro");
-    msg.innerText = "É necessário confirmar o recebimento.";
+    msg.innerText = "É necessário confirmar o recebimento da cartilha.";
     return;
   }
 
@@ -163,13 +175,13 @@ function registrar() {
   .then(() => {
     msg.style.display = "block";
     msg.classList.add("sucesso");
-    msg.innerText = "Anglo Cezanne informa: Recebimento registrado com sucesso!";
+    msg.innerText = "Anglo Cezanne informa: recebimento registrado com sucesso!";
 
-    window.open("cartilha.pdf", "_blank");
+    window.open("Cartilha_Cidadania_Digital_PROFESSOR.pdf", "_blank");
 
     const link = document.createElement("a");
-    link.href = "cartilha.pdf";
-    link.download = "Cartilha.pdf";
+    link.href = "Cartilha_Cidadania_Digital_PROFESSOR.pdf";
+    link.download = "Cartilha_Cidadania_Digital_PROFESSOR.pdf";
     link.click();
   })
   .catch(() => {
