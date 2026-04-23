@@ -22,28 +22,18 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
-    h2 { text-align: center; }
+    h2 {
+      text-align: center;
+    }
 
-    input {
-      width: 100%;
+    input[type="text"] {
+      width: 70%;
       padding: 10px;
-      margin-top: 10px;
-      margin-bottom: 15px;
+      /*margin: 10px auto 15px auto;*/
+      display: block;
       border-radius: 5px;
       border: 1px solid #ccc;
     }
-
-    button {
-      width: 100%;
-      padding: 10px;
-      background: #007BFF;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    button:hover { background: #0056b3; }
 
     .box {
       background: #eef3f7;
@@ -52,6 +42,32 @@
       margin-bottom: 15px;
       font-size: 14px;
     }
+
+    /* ✅ Checkbox alinhado */
+    label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    /* ✅ Botão corrigido */
+    button {
+      width: 30%;
+      padding: 10px;
+      background: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto 0 auto;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
   </style>
 </head>
 
@@ -68,31 +84,29 @@
     - O download será feito após a confirmação
   </div>
 
-  <input type="text" id="nome" placeholder="Digite seu nome">
+  <input type="text" id="nome" placeholder="Digite seu nome completo">
 
   <label>
-    <input type="checkbox" id="concordo">
-    Li e concordo com a cartilha
+    <input type="checkbox" id="confirmo">
+    Confirmo que recebi a cartilha
   </label>
 
-  <br><br>
   <button onclick="registrar()">Enviar</button>
 
 </div>
 
 <script>
-
 function registrar() {
   const nome = document.getElementById("nome").value;
-  const concordo = document.getElementById("concordo").checked;
+  const confirmo = document.getElementById("confirmo").checked;
 
   if (nome === "") {
-    alert("Digite seu nome!");
+    alert("Por favor, informe seu nome.");
     return;
   }
 
-  if (!concordo) {
-    alert("Você precisa concordar para continuar!");
+  if (!confirmo) {
+    alert("É necessário confirmar o recebimento para continuar.");
     return;
   }
 
@@ -100,16 +114,14 @@ function registrar() {
     method: "POST",
     body: new URLSearchParams({
       nome: nome,
-      resposta: "Concordo"
+      resposta: "Confirmo recebimento da cartilha"
     })
   })
   .then(() => {
-    alert("Resposta registrada com sucesso!");
+    alert("Recebimento registrado com sucesso!");
 
-    // 📄 ABRIR EM NOVA ABA
     window.open("cartilha.pdf", "_blank");
 
-    // 📥 FORÇAR DOWNLOAD
     const link = document.createElement("a");
     link.href = "cartilha.pdf";
     link.download = "Cartilha.pdf";
@@ -119,7 +131,6 @@ function registrar() {
     alert("Erro ao registrar!");
   });
 }
-
 </script>
 
 </body>
