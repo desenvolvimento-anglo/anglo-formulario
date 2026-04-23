@@ -22,7 +22,7 @@
       padding: 25px;
       border-radius: 10px;
       width: 100%;
-      max-width: 400px; /* 👈 controla no desktop */
+      max-width: 400px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
@@ -37,7 +37,7 @@
       margin-bottom: 15px;
       border-radius: 5px;
       border: 1px solid #ccc;
-      box-sizing: border-box; /* 👈 evita estourar largura */
+      box-sizing: border-box;
     }
 
     .box {
@@ -72,13 +72,32 @@
       background: #0056b3;
     }
 
-    /* 🔥 Ajuste extra para telas maiores */
     @media (min-width: 600px) {
       button {
         width: 200px;
         display: block;
         margin: 20px auto 0 auto;
       }
+    }
+
+    /* ✅ Mensagem personalizada */
+    #mensagem {
+      display: none;
+      margin-top: 15px;
+      text-align: center;
+      padding: 10px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .sucesso {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .erro {
+      background: #f8d7da;
+      color: #721c24;
     }
 
   </style>
@@ -106,20 +125,31 @@
 
   <button onclick="registrar()">Enviar</button>
 
+  <!-- ✅ Mensagem aparece aqui -->
+  <div id="mensagem"></div>
+
 </div>
 
 <script>
 function registrar() {
   const nome = document.getElementById("nome").value;
   const confirmo = document.getElementById("confirmo").checked;
+  const msg = document.getElementById("mensagem");
+
+  msg.style.display = "none";
+  msg.className = "";
 
   if (nome === "") {
-    alert("Por favor, informe seu nome.");
+    msg.style.display = "block";
+    msg.classList.add("erro");
+    msg.innerText = "Por favor, informe seu nome.";
     return;
   }
 
   if (!confirmo) {
-    alert("É necessário confirmar o recebimento para continuar.");
+    msg.style.display = "block";
+    msg.classList.add("erro");
+    msg.innerText = "É necessário confirmar o recebimento.";
     return;
   }
 
@@ -131,7 +161,9 @@ function registrar() {
     })
   })
   .then(() => {
-    alert("Recebimento registrado com sucesso!");
+    msg.style.display = "block";
+    msg.classList.add("sucesso");
+    msg.innerText = "Anglo Cezanne informa: Recebimento registrado com sucesso!";
 
     window.open("cartilha.pdf", "_blank");
 
@@ -141,7 +173,9 @@ function registrar() {
     link.click();
   })
   .catch(() => {
-    alert("Erro ao registrar!");
+    msg.style.display = "block";
+    msg.classList.add("erro");
+    msg.innerText = "Erro ao registrar. Tente novamente.";
   });
 }
 </script>
