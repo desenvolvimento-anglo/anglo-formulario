@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Cartilha</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      width: 400px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 { text-align: center; }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover { background: #0056b3; }
+
+    .box {
+      background: #eef3f7;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h2>Cartilha</h2>
+
+  <div class="box">
+    <b>Orientações:</b><br><br>
+    - Leia atentamente todo o conteúdo da cartilha<br>
+    - Após enviar, a cartilha será liberada automaticamente<br>
+    - O download será feito após a confirmação
+  </div>
+
+  <input type="text" id="nome" placeholder="Digite seu nome">
+
+  <label>
+    <input type="checkbox" id="concordo">
+    Li e concordo com a cartilha
+  </label>
+
+  <br><br>
+  <button onclick="registrar()">Enviar</button>
+
+</div>
+
+<script>
+
+function registrar() {
+  const nome = document.getElementById("nome").value;
+  const concordo = document.getElementById("concordo").checked;
+
+  if (nome === "") {
+    alert("Digite seu nome!");
+    return;
+  }
+
+  if (!concordo) {
+    alert("Você precisa concordar para continuar!");
+    return;
+  }
+
+  fetch("https://script.google.com/macros/s/AKfycbwlYh8IgeYLXhJ1wKF-qoBPI9126jibhFQR81fV3dDor1L6dxvUxNOT0AcCj5HhiENC/exec", {
+    method: "POST",
+    body: new URLSearchParams({
+      nome: nome,
+      resposta: "Concordo"
+    })
+  })
+  .then(() => {
+    alert("Resposta registrada com sucesso!");
+
+    // 📄 ABRIR EM NOVA ABA
+    window.open("cartilha.pdf", "_blank");
+
+    // 📥 FORÇAR DOWNLOAD
+    const link = document.createElement("a");
+    link.href = "cartilha.pdf";
+    link.download = "Cartilha.pdf";
+    link.click();
+  })
+  .catch(() => {
+    alert("Erro ao registrar!");
+  });
+}
+
+</script>
+
+</body>
+</html>
